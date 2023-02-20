@@ -29,6 +29,16 @@ impl List {
         });
         self.head = Link::More(new_node);
     }
+
+    pub fn pop(&mut self) -> Option<i32> {
+        match mem::replace(&mut self.head, Link::Empty) {
+            Link::Empty => None,
+            Link::More(node) => {
+                self.head = node.next;
+                Some(node.elem)
+            }
+        }
+    }
 }
 
 #[cfg(test)]
@@ -45,5 +55,14 @@ mod tests {
             })),
         };
         assert_eq!(l1, expected_list);
+    }
+
+    #[test]
+    fn pop() {
+        let mut l1 = List::new();
+        assert_eq!(l1.pop(), None);
+        l1.push(100);
+        assert_eq!(l1.pop(), Some(100));
+        assert_eq!(l1, List::new());
     }
 }
