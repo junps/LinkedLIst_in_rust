@@ -3,7 +3,7 @@ use std::mem;
 #[derive(Debug, PartialEq, Eq)]
 struct Node {
     elem: i32,
-    next: List,
+    next: Link,
 }
 
 #[derive(Debug, PartialEq, Eq)]
@@ -23,12 +23,9 @@ impl List {
     }
 
     pub fn push(&mut self, elem: i32) {
-        let new_next = List {
-            head: mem::replace(&mut self.head, Link::Empty),
-        };
         let new_node = Box::new(Node {
             elem,
-            next: new_next,
+            next: mem::replace(&mut self.head, Link::Empty),
         });
         self.head = Link::More(new_node);
     }
@@ -44,7 +41,7 @@ mod tests {
         let expected_list = List {
             head: Link::More(Box::new(Node {
                 elem: 100,
-                next: List { head: Link::Empty },
+                next: Link::Empty,
             })),
         };
         assert_eq!(l1, expected_list);
