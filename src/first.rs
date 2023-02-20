@@ -15,6 +15,12 @@ pub struct List {
     head: Link,
 }
 
+impl List {
+    pub fn new() -> Self {
+        Self { head: Link::Empty }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -29,5 +35,7 @@ mod tests {
         };
         println!("{:?}", l1);
         println!("{:?}", l2);
+        let l3 = List::new();
+        println!("{:?}", l3);
     }
 }
