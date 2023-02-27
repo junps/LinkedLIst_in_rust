@@ -38,6 +38,15 @@ impl List {
                 Some(node.elem)
             }
         }
+        // The code below maybe also fine.
+        // match &mut self.head {
+        //     Link::Empty => None,
+        //     Link::More(node) => {
+        //         let res = node.elem;
+        //         self.head = mem::replace(&mut node.next, Link::Empty);
+        //         Some(res)
+        //     }
+        // }
     }
 }
 
